@@ -14,6 +14,8 @@ function doGet(e) {
     Logger.log('Using sheet: ' + sheet.getName());
     
     const params = e.parameter;
+    const callback = params.callback; // JSONP callback function name
+    
     const timestamp = new Date();
     const row = [
       timestamp,
@@ -36,19 +38,39 @@ function doGet(e) {
       sendConfirmationEmail(params);
     }
     
+    const response = {
+      status: 'success',
+      message: 'RSVP recorded successfully!'
+    };
+    
+    // Support JSONP callback for in-app browsers
+    if (callback) {
+      return ContentService
+        .createTextOutput(callback + '(' + JSON.stringify(response) + ')')
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    
+    // Regular JSON response
     return ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'success',
-        message: 'RSVP recorded successfully!'
-      }))
+      .createTextOutput(JSON.stringify(response))
       .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
+    const errorResponse = {
+      status: 'error',
+      message: error.toString()
+    };
+    
+    // Safely check for callback parameter
+    const callback = e && e.parameter && e.parameter.callback;
+    if (callback) {
+      return ContentService
+        .createTextOutput(callback + '(' + JSON.stringify(errorResponse) + ')')
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    
     return ContentService
-      .createTextOutput(JSON.stringify({
-        status: 'error',
-        message: error.toString()
-      }))
+      .createTextOutput(JSON.stringify(errorResponse))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }

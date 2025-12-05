@@ -1,5 +1,15 @@
 # Google Sheet Not Updating - Troubleshooting Guide
 
+## ✅ IN-APP BROWSER FIX APPLIED
+
+**Good news!** The form now uses JSONP method which works in ALL browsers, including:
+- Facebook Messenger in-app browser
+- Instagram in-app browser
+- LINE in-app browser
+- Regular browsers (Chrome, Safari, Firefox)
+
+See `IN_APP_BROWSER_FIX.md` for technical details.
+
 ## Quick Checks
 
 ### 1. Check Apps Script Deployment

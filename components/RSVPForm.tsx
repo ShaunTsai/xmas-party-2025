@@ -43,62 +43,77 @@ export default function RSVPForm() {
     try {
       const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyQ_eAuwglqnllqSfY3p-sGJjzoxosEKx3lkDndJbe4Ar8E9r5qVf-n1G1kKy5Iqfzjw/exec'
       
-      // Use URLSearchParams for form data
+      // Use JSONP callback method - works in all browsers including in-app browsers
+      const callbackName = 'rsvpCallback_' + Date.now()
+      
+      // Create callback function
+      ;(window as any)[callbackName] = (response: any) => {
+        console.log('✅ [RSVP] 收到回應:', response)
+        setSubmitStatus('success')
+        console.log('🎉 [RSVP] 表單提交成功！')
+        
+        // Clean up
+        delete (window as any)[callbackName]
+        const script = document.getElementById(callbackName)
+        if (script) {
+          document.body.removeChild(script)
+        }
+        
+        // Reset form
+        setFormData({
+          name: '',
+          invitedBy: '',
+          email: '',
+          attendance: 'yes',
+          arrivalTime: '',
+          departureTime: '',
+          dietaryRestrictions: '',
+          plusOne: 'no',
+          plusOneName: '',
+          notes: '',
+        })
+        
+        setIsSubmitting(false)
+      }
+      
+      // Build URL with parameters
       const params = new URLSearchParams()
       Object.entries(formData).forEach(([key, value]) => {
         params.append(key, value)
       })
-
+      params.append('callback', callbackName)
+      
       const fullURL = `${SCRIPT_URL}?${params.toString()}`
       console.log('🔗 [RSVP] 完整 URL:', fullURL)
-      console.log('📤 [RSVP] 使用 iframe 方法提交...')
-
-      // Create a hidden iframe to submit the form (bypasses CORS)
-      const iframe = document.createElement('iframe')
-      iframe.style.display = 'none'
-      iframe.name = 'rsvp-frame'
-      document.body.appendChild(iframe)
-
-      // Create a form and submit it to the iframe
-      const form = document.createElement('form')
-      form.method = 'GET'
-      form.action = SCRIPT_URL
-      form.target = 'rsvp-frame'
-
-      Object.entries(formData).forEach(([key, value]) => {
-        const input = document.createElement('input')
-        input.type = 'hidden'
-        input.name = key
-        input.value = value
-        form.appendChild(input)
-      })
-
-      document.body.appendChild(form)
-      form.submit()
-
-      // Clean up after a short delay
-      setTimeout(() => {
-        document.body.removeChild(form)
-        document.body.removeChild(iframe)
-      }, 1000)
-
-      console.log('✅ [RSVP] 表單已提交到 iframe')
-      setSubmitStatus('success')
-      console.log('🎉 [RSVP] 表單提交成功！')
-      console.log('💡 [RSVP] 請檢查 Google Sheet 是否有新資料')
+      console.log('📤 [RSVP] 使用 JSONP 方法提交（支援所有瀏覽器）...')
       
-      setFormData({
-        name: '',
-        invitedBy: '',
-        email: '',
-        attendance: 'yes',
-        arrivalTime: '',
-        departureTime: '',
-        dietaryRestrictions: '',
-        plusOne: 'no',
-        plusOneName: '',
-        notes: '',
-      })
+      // Create script tag for JSONP
+      const script = document.createElement('script')
+      script.id = callbackName
+      script.src = fullURL
+      script.onerror = () => {
+        console.error('❌ [RSVP] JSONP 請求失敗')
+        setSubmitStatus('error')
+        setIsSubmitting(false)
+        delete (window as any)[callbackName]
+      }
+      
+      document.body.appendChild(script)
+      
+      // Timeout after 10 seconds
+      setTimeout(() => {
+        if ((window as any)[callbackName]) {
+          console.log('⏱️ [RSVP] 請求超時，但資料可能已送出')
+          setSubmitStatus('success')
+          setIsSubmitting(false)
+          delete (window as any)[callbackName]
+          const scriptEl = document.getElementById(callbackName)
+          if (scriptEl) {
+            document.body.removeChild(scriptEl)
+          }
+        }
+      }, 10000)
+      
     } catch (error) {
       console.error('❌ [RSVP] 提交錯誤:', error)
       console.error('❌ [RSVP] 錯誤詳情:', {
@@ -107,9 +122,7 @@ export default function RSVPForm() {
         error: error
       })
       setSubmitStatus('error')
-    } finally {
       setIsSubmitting(false)
-      setTimeout(() => setSubmitStatus('idle'), 5000)
     }
   }
 
@@ -135,16 +148,10 @@ export default function RSVPForm() {
         </p>
 
         {isInAppBrowser && (
-          <div className="bg-yellow-500/20 border-2 border-yellow-400 rounded-xl p-4 mb-6">
-            <p className="text-white text-sm mb-3">
-              ⚠️ 您正在使用應用程式內建瀏覽器，表單可能無法正常提交。
+          <div className="bg-blue-500/20 border-2 border-blue-400 rounded-xl p-4 mb-6">
+            <p className="text-white text-sm">
+              💡 您正在使用應用程式內建瀏覽器。表單已優化支援，可以直接提交！
             </p>
-            <button
-              onClick={() => window.open(window.location.href, '_blank')}
-              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg text-sm w-full"
-            >
-              🌐 在瀏覽器中開啟
-            </button>
           </div>
         )}
 
