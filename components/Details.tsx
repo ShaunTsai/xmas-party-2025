@@ -198,7 +198,7 @@ export default function Details() {
                   <span className="text-pink-300 font-bold">我們人生第一次舉辦的跨領域派對！</span>
                 </p>
                 <p className="text-white text-base leading-relaxed">
-                  預計會有 <span className="text-purple-300 font-semibold">YouTuber、爵士樂手、投資專家、醫師、律師</span>等亂七八糟背景的朋友參與。
+                  預計會有 <span className="text-purple-300 font-semibold">YouTuber、爵士樂手、投資專家、醫師、律師、職業潛水員、老闆、待業者、不明所以酷酷的人</span>等亂七八糟背景的朋友參與。
                 </p>
                 <p className="text-white text-base mt-3 italic">
                   會很好玩嗎？還是會尷尬的很好玩？Let's find out! 😄
