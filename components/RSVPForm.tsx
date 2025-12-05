@@ -117,7 +117,7 @@ export default function RSVPForm() {
         <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">
           立即回覆 🎊
         </h2>
-        <p className="text-white/80 text-center mb-12">
+        <p className="text-white text-center mb-12">
           讓我們知道你能否參加！
         </p>
 

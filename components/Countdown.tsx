@@ -38,7 +38,7 @@ export default function Countdown() {
       <div className="text-4xl md:text-6xl font-bold text-christmas-gold mb-2">
         {value.toString().padStart(2, '0')}
       </div>
-      <div className="text-white/80 text-sm md:text-base uppercase tracking-wider">
+      <div className="text-white text-sm md:text-base uppercase tracking-wider">
         {label}
       </div>
     </motion.div>

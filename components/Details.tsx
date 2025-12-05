@@ -32,12 +32,12 @@ export default function Details() {
                 href="https://maps.app.goo.gl/ngq21oJqzqLtDmr86"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/90 text-lg mb-3 hover:text-christmas-gold transition-colors inline-flex items-center gap-2 underline decoration-dotted"
+                className="text-white text-lg mb-3 hover:text-christmas-gold transition-colors inline-flex items-center gap-2 underline decoration-dotted"
               >
                 📍 桃園市龜山區文化一路668號19樓之六
                 <span className="text-sm">🗺️</span>
               </a>
-              <p className="text-white/80 text-base mt-3">
+              <p className="text-white text-base mt-3">
                 🚇 機場捷運 A7 捷運站一出站正對面！
               </p>
               <div className="mt-4 bg-orange-500/30 border-2 border-orange-400 rounded-xl p-4">
@@ -63,7 +63,7 @@ export default function Details() {
               <p className="text-2xl text-christmas-gold font-semibold mb-2">
                 下午1點開始
               </p>
-              <p className="text-white/90 text-lg">
+              <p className="text-white text-lg">
                 隨時進出都可以！想待多久就待多久 😊
               </p>
             </div>
@@ -81,10 +81,10 @@ export default function Details() {
             <div className="text-5xl">🍷</div>
             <div className="flex-1">
               <h3 className="text-3xl font-bold text-white mb-3">餐飲</h3>
-              <p className="text-white/90 text-lg mb-3">
+              <p className="text-white text-lg mb-3">
                 可以先吃過正餐再來，我們會準備：
               </p>
-              <ul className="text-white/80 space-y-2 ml-4">
+              <ul className="text-white space-y-2 ml-4">
                 <li>🍷 熱紅酒等飲料</li>
                 <li>🍪 Finger food</li>
                 <li>🍰 甜品</li>
@@ -92,9 +92,9 @@ export default function Details() {
               <div className="mt-4 bg-green-500/20 border border-green-400/60 rounded-xl p-4">
                 <p className="text-white text-base mb-3">
                   🎉 也歡迎帶你喜歡的<span className="text-green-300 font-semibold">小吃、飲料、桌遊、甚至樂器</span>來一起同樂！
-                  <span className="text-white/70 text-sm ml-2">（隨緣就好）</span>
+                  <span className="text-white text-sm ml-2">（隨緣就好）</span>
                 </p>
-                <p className="text-white/80 text-sm">
+                <p className="text-white text-sm">
                   🎸 想帶樂器來 jam 的朋友歡迎！
                   <span className="text-yellow-300 text-xs ml-2">⚠️ 場地不提供 PA 級擴大機或音響</span>
                 </p>
@@ -114,17 +114,17 @@ export default function Details() {
             <div className="text-5xl">👔</div>
             <div className="flex-1">
               <h3 className="text-3xl font-bold text-white mb-3">Dress Code 🎄</h3>
-              <p className="text-white/90 text-lg mb-4">
+              <p className="text-white text-lg mb-4">
                 盡可能有聖誕節氣的服裝都非常好！
               </p>
-              <p className="text-white/80 text-base mb-4">
+              <p className="text-white text-base mb-4">
                 希望您願意穿<span className="text-yellow-300 font-bold">黃色</span>、
                 <span className="text-red-400 font-bold">紅色</span>或是
                 <span className="text-green-400 font-bold">綠色</span>為主體、
                 或是鮮艷顏色的衣服前來
               </p>
               <div className="bg-white/10 rounded-2xl p-6 mt-4">
-                <p className="text-white/90 text-base mb-4">
+                <p className="text-white text-base mb-4">
                   當天的 Host 都會穿上聖誕節醜毛衣 😂
                 </p>
                 <div className="relative w-full max-w-md mx-auto aspect-[4/3] rounded-xl overflow-hidden">
@@ -135,7 +135,7 @@ export default function Details() {
                     className="object-cover"
                   />
                 </div>
-                <p className="text-white/60 text-sm text-center mt-3">
+                <p className="text-white text-sm text-center mt-3">
                   醜毛衣範例 - 越醜越好！
                 </p>
               </div>
@@ -154,12 +154,12 @@ export default function Details() {
             <div className="text-5xl">🎁</div>
             <div className="flex-1">
               <h3 className="text-3xl font-bold text-white mb-3">
-                交換禮物 <span className="text-lg text-white/60">（非必須）</span>
+                交換禮物 <span className="text-lg text-white">（非必須）</span>
               </h3>
-              <p className="text-white/90 text-lg mb-4">
+              <p className="text-white text-lg mb-4">
                 假如你也想體驗交換禮物的活動：
               </p>
-              <ul className="text-white/80 space-y-3 ml-4">
+              <ul className="text-white space-y-3 ml-4">
                 <li>📝 我們會當天選幾個時段進行交換</li>
                 <li>🤖 讓各位填寫對禮物的期待</li>
                 <li>✨ 用 AI 幫您配對最符合您需求的 Secret Santa</li>
@@ -186,18 +186,18 @@ export default function Details() {
               <h3 className="text-3xl font-bold text-white mb-4">派對亮點</h3>
               
               <div className="bg-white/10 rounded-2xl p-6 mb-6">
-                <p className="text-white/90 text-lg leading-relaxed mb-3">
+                <p className="text-white text-lg leading-relaxed mb-3">
                   <span className="text-pink-300 font-bold">我們人生第一次舉辦的跨領域派對！</span>
                 </p>
-                <p className="text-white/80 text-base leading-relaxed">
+                <p className="text-white text-base leading-relaxed">
                   預計會有 <span className="text-purple-300 font-semibold">YouTuber、爵士樂手、投資專家、醫師、律師</span>等亂七八糟背景的朋友參與。
                 </p>
-                <p className="text-white/70 text-base mt-3 italic">
+                <p className="text-white text-base mt-3 italic">
                   會很好玩嗎？還是會尷尬的很好玩？Let's find out! 😄
                 </p>
               </div>
 
-              <ul className="text-white/90 space-y-2">
+              <ul className="text-white space-y-2">
                 <li>✨ 新家導覽</li>
                 <li>🎮 遊戲與娛樂</li>
                 <li>🎵 美好的音樂氛圍</li>

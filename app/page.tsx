@@ -46,7 +46,7 @@ export default function Home() {
         <motion.footer
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          className="text-center py-12 text-white/60"
+          className="text-center py-12 text-white"
         >
           <p>用心為朋友和家人準備 ❤️</p>
           <p className="text-sm mt-2">聖誕節見！🎄</p>
