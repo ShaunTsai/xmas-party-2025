@@ -154,6 +154,7 @@ function sendConfirmationEmail(data) {
       body += '🕐 時間：下午1點開始（13:00-21:00）\n';
       body += '📍 地點：桃園市龜山區文化一路668號19樓之六\n';
       body += '🗺️ Google Maps: https://maps.app.goo.gl/ngq21oJqzqLtDmr86\n\n';
+      body += '� 日曆邀請已附加在;此郵件中，先加入行事曆吧！\n\n';
       body += '💡 重要提醒：\n';
       body += '請加入我們的 Line Bot 好友以獲得最新派對資訊和入場指引：\n';
       body += '👉 https://lin.ee/z3283a3\n\n';
@@ -167,8 +168,8 @@ function sendConfirmationEmail(data) {
     body += 'Shaun, Joshua & Kris\n\n';
     body += 'P.S. 如需更新回覆，請再次填寫表單或直接聯絡我們。';
     
-    // Send email with calendar invite for confirmed attendees
-    if (data.attendance === 'yes') {
+    // Send email with calendar invite for "yes" and "maybe" responses
+    if (data.attendance === 'yes' || data.attendance === 'maybe') {
       sendEmailWithCalendarInvite(data.email, subject, body, data.name);
     } else {
       MailApp.sendEmail(data.email, subject, body);

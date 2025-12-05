@@ -42,7 +42,8 @@ export default function Hero() {
           className="text-xl md:text-2xl text-white"
         >
           <p className="mb-2">📅 2025年12月25日</p>
-          <p>🕐 下午1點開始</p>
+          <p>🕐 下午1點至晚上10點</p>
+          <p className="text-lg mt-2 text-white/80">隨時進出，自由來去</p>
         </motion.div>
 
         <motion.div

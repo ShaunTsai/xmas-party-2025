@@ -69,10 +69,13 @@ export default function Details() {
             <div className="flex-1">
               <h3 className="text-3xl font-bold text-white mb-3">時間</h3>
               <p className="text-2xl text-christmas-gold font-semibold mb-2">
-                下午1點開始
+                下午1點至晚上10點
               </p>
-              <p className="text-white text-lg">
+              <p className="text-white text-lg mb-2">
                 隨時進出都可以！想待多久就待多久 😊
+              </p>
+              <p className="text-white text-base">
+                不是嚴格的1點開始，隨時歡迎加入或離開
               </p>
             </div>
           </div>
