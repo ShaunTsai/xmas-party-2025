@@ -128,6 +128,14 @@ function sendConfirmationEmail(data) {
       body += '派對見！\n\n';
     } else if (data.attendance === 'maybe') {
       body += '感謝讓我們知道！希望你能來參加。🤞\n\n';
+      body += '📅 日期：2025年12月25日\n';
+      body += '🕐 時間：下午1點開始（13:00-21:00）\n';
+      body += '📍 地點：桃園市龜山區文化一路668號19樓之六\n';
+      body += '🗺️ Google Maps: https://maps.app.goo.gl/ngq21oJqzqLtDmr86\n\n';
+      body += '💡 重要提醒：\n';
+      body += '請加入我們的 Line Bot 好友以獲得最新派對資訊和入場指引：\n';
+      body += '👉 https://lin.ee/z3283a3\n\n';
+      body += '如果確定要來，歡迎再次填寫表單更新回覆！\n\n';
     } else {
       body += '感謝讓我們知道。很遺憾你無法參加！😢\n\n';
       body += '希望之後能見到你！\n\n';
@@ -150,40 +158,58 @@ function sendConfirmationEmail(data) {
 
 function sendEmailWithCalendarInvite(email, subject, body, guestName) {
   try {
-    // Create calendar event
-    const startTime = new Date('2025-12-25T13:00:00+08:00');
-    const endTime = new Date('2025-12-25T21:00:00+08:00');
-    const location = '桃園市龜山區文化一路668號19樓之六';
-    const description = '🎄 聖誕喬遷派對\n\n' +
-                       '歡迎來到我們的新家！\n\n' +
-                       '📍 地點：桃園機場捷運 A7 捷市達\n' +
-                       '🗺️ Google Maps: https://maps.app.goo.gl/ngq21oJqzqLtDmr86\n\n' +
-                       '🎉 活動內容：\n' +
-                       '- 熱紅酒與美食\n' +
-                       '- 遊戲與娛樂\n' +
-                       '- 交換禮物（選擇性參加）\n' +
-                       '- 認識有趣的朋友\n\n' +
-                       '💡 重要提醒：抵達時請訊息 Line Bot 讓我們知道要下去帶您！\n\n' +
-                       '期待見到你！\n' +
-                       'Shaun, Joshua & Kris';
+    // Create ICS calendar file content
+    const startTime = '20251225T130000';
+    const endTime = '20251225T210000';
+    const now = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
     
-    // Create the calendar event
-    const event = CalendarApp.getDefaultCalendar().createEvent(
-      '🎄 聖誕喬遷派對',
-      startTime,
-      endTime,
-      {
-        description: description,
-        location: location,
-        guests: email,
-        sendInvites: true
-      }
-    );
+    const icsContent = 
+      'BEGIN:VCALENDAR\n' +
+      'VERSION:2.0\n' +
+      'PRODID:-//Christmas Party//NONSGML v1.0//EN\n' +
+      'CALSCALE:GREGORIAN\n' +
+      'METHOD:REQUEST\n' +
+      'BEGIN:VEVENT\n' +
+      'UID:' + now + '@shauntsai.github.io\n' +
+      'DTSTAMP:' + now + '\n' +
+      'DTSTART:' + startTime + '\n' +
+      'DTEND:' + endTime + '\n' +
+      'SUMMARY:🎄 聖誕喬遷派對\n' +
+      'DESCRIPTION:歡迎來到我們的新家！\\n\\n' +
+      '📍 地點：桃園機場捷運 A7 捷市達\\n' +
+      '🗺️ Google Maps: https://maps.app.goo.gl/ngq21oJqzqLtDmr86\\n\\n' +
+      '� 活動內容派：\\n' +
+      '- 熱紅酒與美食\\n' +
+      '- 遊戲與娛樂\\n' +
+      '- 交換禮物（選擇性參加）\\n' +
+      '- 認識有趣的朋友\\n\\n' +
+      '💡 重要提醒：抵達時請訊息 Line Bot 讓我們知道要下去帶您！\\n' +
+      'Line Bot: https://lin.ee/z3283a3\\n\\n' +
+      '期待見到你！\\n' +
+      'Shaun, Joshua & Kris\n' +
+      'LOCATION:桃園市龜山區文化一路668號19樓之六\n' +
+      'STATUS:CONFIRMED\n' +
+      'SEQUENCE:0\n' +
+      'BEGIN:VALARM\n' +
+      'TRIGGER:-PT24H\n' +
+      'ACTION:DISPLAY\n' +
+      'DESCRIPTION:明天就是聖誕派對了！\n' +
+      'END:VALARM\n' +
+      'END:VEVENT\n' +
+      'END:VCALENDAR';
     
-    Logger.log('Calendar invite sent to: ' + email);
+    // Create blob for ICS file
+    const icsBlob = Utilities.newBlob(icsContent, 'text/calendar', 'christmas-party.ics');
     
-    // Also send the regular email
-    MailApp.sendEmail(email, subject, body);
+    // Send email with ICS attachment
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      body: body,
+      attachments: [icsBlob]
+    });
+    
+    Logger.log('Email with calendar invite sent to: ' + email);
     
   } catch (error) {
     Logger.log('Calendar invite error: ' + error);

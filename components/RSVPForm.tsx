@@ -166,13 +166,14 @@ export default function RSVPForm() {
           {/* Email */}
           <div>
             <label className="block text-white font-semibold mb-2">
-              Email（選填）
+              Email *
             </label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
+              required
               className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-christmas-gold"
               placeholder="your@email.com"
             />
