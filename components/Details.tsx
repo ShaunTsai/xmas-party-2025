@@ -41,9 +41,17 @@ export default function Details() {
                 🚇 機場捷運 A7 捷運站一出站正對面！
               </p>
               <div className="mt-4 bg-orange-500/30 border-2 border-orange-400 rounded-xl p-4">
-                <p className="text-white text-base font-semibold">
+                <p className="text-white text-base font-semibold mb-3">
                   💡 <strong>重要提醒：</strong>您抵達的時候記得訊息 Line Bot 讓我們知道要下去帶您！
                 </p>
+                <a
+                  href="https://lin.ee/z3283a3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-base font-bold hover:text-yellow-300 transition-colors underline"
+                >
+                  👉 點擊此連結加入 Line Bot 好友
+                </a>
               </div>
             </div>
           </div>

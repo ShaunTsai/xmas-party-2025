@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 
 export default function Hosts() {
   const hosts = [
-    { name: 'Shaun', emoji: '👨‍💻', color: 'from-blue-500 to-purple-500' },
-    { name: 'Joshua', emoji: '🎸', color: 'from-green-500 to-teal-500' },
-    { name: 'Kris', emoji: '🎨', color: 'from-pink-500 to-rose-500' },
+    { name: 'Shaun Tsai', emoji: '👨‍💻', color: 'from-blue-500 to-purple-500' },
+    { name: 'Joshua Shih', emoji: '🎸', color: 'from-green-500 to-teal-500' },
+    { name: 'Kris Chiu', emoji: '🎨', color: 'from-pink-500 to-rose-500' },
   ]
 
   return (
