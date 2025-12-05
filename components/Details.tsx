@@ -129,7 +129,7 @@ export default function Details() {
                 </p>
                 <div className="relative w-full max-w-md mx-auto aspect-[4/3] rounded-xl overflow-hidden">
                   <Image
-                    src="/ugly-sweater.webp"
+                    src={`${process.env.NODE_ENV === 'production' ? '/xmas-party-2025' : ''}/ugly-sweater.webp`}
                     alt="醜毛衣範例"
                     fill
                     className="object-cover"

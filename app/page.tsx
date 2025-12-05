@@ -24,7 +24,7 @@ export default function Home() {
       <div 
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: 'url(/background.png)',
+          backgroundImage: `url(${process.env.NODE_ENV === 'production' ? '/xmas-party-2025' : ''}/background.png)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
