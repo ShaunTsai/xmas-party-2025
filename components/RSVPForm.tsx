@@ -28,7 +28,7 @@ export default function RSVPForm() {
     console.log('📝 [RSVP] 表單資料:', formData)
 
     try {
-      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyw-_KlOuFPASNsGBe34P2gxoaqkWawNPfkvnpOPOj9oVmpynJOhd04ixcZGSMEZM8hIw/exec'
+      const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyQ_eAuwglqnllqSfY3p-sGJjzoxosEKx3lkDndJbe4Ar8E9r5qVf-n1G1kKy5Iqfzjw/exec'
       
       // Use URLSearchParams for form data
       const params = new URLSearchParams()
