@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function RSVPForm() {
   const [formData, setFormData] = useState({
@@ -19,6 +19,19 @@ export default function RSVPForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [isInAppBrowser, setIsInAppBrowser] = useState(false)
+
+  useEffect(() => {
+    // Detect in-app browsers
+    const ua = navigator.userAgent || navigator.vendor
+    const isInApp = 
+      ua.includes('FBAN') || // Facebook
+      ua.includes('FBAV') || // Facebook
+      ua.includes('Instagram') || // Instagram
+      ua.includes('Line') || // LINE
+      ua.includes('Messenger') // Messenger
+    setIsInAppBrowser(isInApp)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -120,6 +133,20 @@ export default function RSVPForm() {
         <p className="text-white text-center mb-12">
           讓我們知道你能否參加！
         </p>
+
+        {isInAppBrowser && (
+          <div className="bg-yellow-500/20 border-2 border-yellow-400 rounded-xl p-4 mb-6">
+            <p className="text-white text-sm mb-3">
+              ⚠️ 您正在使用應用程式內建瀏覽器，表單可能無法正常提交。
+            </p>
+            <button
+              onClick={() => window.open(window.location.href, '_blank')}
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg text-sm w-full"
+            >
+              🌐 在瀏覽器中開啟
+            </button>
+          </div>
+        )}
 
         <motion.form
           initial={{ opacity: 0, y: 50 }}
