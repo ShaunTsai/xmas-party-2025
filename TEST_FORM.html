@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP 表單測試</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #C41E3A;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #a01628;
+        }
+        .log {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        .success { color: #00ff00; }
+        .error { color: #ff0000; }
+        .info { color: #00bfff; }
+        h2 { color: #C41E3A; }
+    </style>
+</head>
+<body>
+    <h1>🎄 RSVP 表單除錯工具</h1>
+
+    <!-- Test 1: Direct URL Test -->
+    <div class="test-section">
+        <h2>測試 1: 直接測試 Apps Script URL</h2>
+        <p>這會直接呼叫你的 Google Apps Script</p>
+        <button onclick="testDirectURL()">🔗 測試 URL</button>
+        <div id="log1" class="log"></div>
+    </div>
+
+    <!-- Test 2: Fetch Test -->
+    <div class="test-section">
+        <h2>測試 2: Fetch API 測試</h2>
+        <p>模擬前端表單提交</p>
+        <button onclick="testFetch()">📤 測試 Fetch</button>
+        <div id="log2" class="log"></div>
+    </div>
+
+    <!-- Test 3: Form Data Test -->
+    <div class="test-section">
+        <h2>測試 3: 完整表單資料測試</h2>
+        <p>使用完整的表單資料</p>
+        <button onclick="testFullForm()">📝 測試完整表單</button>
+        <div id="log3" class="log"></div>
+    </div>
+
+    <!-- Test 4: Check Sheet -->
+    <div class="test-section">
+        <h2>測試 4: 檢查清單</h2>
+        <div style="line-height: 2;">
+            <label><input type="checkbox"> Apps Script 已部署（執行身分：我，存取權限：任何人）</label><br>
+            <label><input type="checkbox"> Google Sheet 有正確的欄位標題</label><br>
+            <label><input type="checkbox"> URL 以 /exec 結尾（不是 /dev）</label><br>
+            <label><input type="checkbox"> 在 Apps Script 中執行過 testScript() 函數</label><br>
+            <label><input type="checkbox"> 瀏覽器 Console 沒有錯誤（F12）</label><br>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyw-_KlOuFPASNsGBe34P2gxoaqkWawNPfkvnpOPOj9oVmpynJOhd04ixcZGSMEZM8hIw/exec';
+
+        function log(elementId, message, type = 'info') {
+            const logEl = document.getElementById(elementId);
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type;
+            logEl.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function clearLog(elementId) {
+            document.getElementById(elementId).innerHTML = '';
+        }
+
+        async function testDirectURL() {
+            clearLog('log1');
+            log('log1', '🔗 測試開始...', 'info');
+            log('log1', `URL: ${SCRIPT_URL}`, 'info');
+            
+            const testURL = `${SCRIPT_URL}?name=測試用戶&invitedBy=Shaun&attendance=yes`;
+            log('log1', `完整 URL: ${testURL}`, 'info');
+            
+            try {
+                log('log1', '📤 發送請求...', 'info');
+                const response = await fetch(testURL, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+                
+                log('log1', `✅ 請求完成！Status: ${response.status}`, 'success');
+                log('log1', `Response type: ${response.type}`, 'info');
+                log('log1', '💡 請檢查 Google Sheet 是否有新資料！', 'success');
+                
+            } catch (error) {
+                log('log1', `❌ 錯誤: ${error.message}`, 'error');
+                log('log1', `錯誤詳情: ${JSON.stringify(error)}`, 'error');
+            }
+        }
+
+        async function testFetch() {
+            clearLog('log2');
+            log('log2', '📤 Fetch 測試開始...', 'info');
+            
+            const params = new URLSearchParams({
+                name: '測試用戶',
+                invitedBy: 'Shaun',
+                email: 'test@example.com',
+                attendance: 'yes',
+                arrivalTime: '14:00',
+                departureTime: '18:00',
+                dietaryRestrictions: '素食',
+                plusOne: 'no',
+                plusOneName: '',
+                notes: '這是測試'
+            });
+            
+            const fullURL = `${SCRIPT_URL}?${params.toString()}`;
+            log('log2', `URL 長度: ${fullURL.length} 字元`, 'info');
+            
+            try {
+                const response = await fetch(fullURL, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+                
+                log('log2', `✅ 成功！Status: ${response.status}`, 'success');
+                log('log2', '💡 請檢查 Google Sheet！', 'success');
+                
+            } catch (error) {
+                log('log2', `❌ 錯誤: ${error.message}`, 'error');
+            }
+        }
+
+        async function testFullForm() {
+            clearLog('log3');
+            log('log3', '📝 完整表單測試...', 'info');
+            
+            const formData = {
+                name: '王小明',
+                invitedBy: 'Joshua',
+                email: 'test@gmail.com',
+                attendance: 'yes',
+                arrivalTime: '15:30',
+                departureTime: '20:00',
+                dietaryRestrictions: '不吃牛肉',
+                plusOne: 'yes',
+                plusOneName: '李小華',
+                notes: '會帶桌遊來！'
+            };
+            
+            log('log3', `表單資料: ${JSON.stringify(formData, null, 2)}`, 'info');
+            
+            const params = new URLSearchParams(formData);
+            const fullURL = `${SCRIPT_URL}?${params.toString()}`;
+            
+            try {
+                const response = await fetch(fullURL, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+                
+                log('log3', `✅ 提交成功！`, 'success');
+                log('log3', `Status: ${response.status}`, 'info');
+                log('log3', '💡 請到 Google Sheet 確認資料！', 'success');
+                
+            } catch (error) {
+                log('log3', `❌ 錯誤: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run first test on load
+        window.addEventListener('load', () => {
+            log('log1', '👋 頁面載入完成，準備測試...', 'info');
+        });
+    </script>
+</body>
+</html>

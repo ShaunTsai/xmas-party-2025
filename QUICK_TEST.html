@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>快速測試</title>
+</head>
+<body>
+    <h1>🔥 緊急測試</h1>
+    <button onclick="test()" style="padding: 20px; font-size: 20px; background: red; color: white; border: none; cursor: pointer;">
+        點我測試！
+    </button>
+    <pre id="result" style="background: black; color: lime; padding: 20px; margin-top: 20px;"></pre>
+
+    <script>
+        function test() {
+            const url = 'https://script.google.com/macros/s/AKfycbyw-_KlOuFPASNsGBe34P2gxoaqkWawNPfkvnpOPOj9oVmpynJOhd04ixcZGSMEZM8hIw/exec?name=緊急測試&invitedBy=Shaun&attendance=yes&email=&arrivalTime=&departureTime=&dietaryRestrictions=&plusOne=no&plusOneName=&notes=';
+            
+            document.getElementById('result').textContent = '發送中...\n\nURL: ' + url;
+            
+            // Method 1: iframe
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = url;
+            document.body.appendChild(iframe);
+            
+            setTimeout(() => {
+                document.getElementById('result').textContent += '\n\n✅ 已發送！\n\n請檢查 Google Sheet 是否有新的一行：\n"緊急測試" / "Shaun" / "yes"';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
